@@ -4,13 +4,13 @@ Linköpings universitet
 2022
 
 
-Kursinnehåll:
+Course content:
 
--Abstraktion med sammansatta datatyper
--Pekare och minneshantering i C++
--Objektorinterade koncept (objekt, instans, inkapsling, association, aggregation, komposition, arv)
--Klasser
--Specialisering (arv)
--Polymorfi
--Introduktion till UML (klassdiagram)
--Repetition filuppdelning
+- Abstraction using composed types
+- Pointers and memory handling in C++
+- Object orientated programming
+- Classes
+- Inheritance
+- Polymorphism
+- Introduction to UML (class diagrams)
+- Repetition of file separation
