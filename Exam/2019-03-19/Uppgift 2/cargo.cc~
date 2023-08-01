@@ -1,0 +1,17 @@
+#include "cargo.h"
+
+Cargo::Cargo(std::string const& item, int const& value)
+  : item{item}, value{value} 
+{
+  
+}
+
+std::ostream& operator<<(std::ostream& os, Cargo const& rhs)
+{
+  return os << rhs.item << " " << rhs.value;
+}
+
+int Cargo::operator+(Cargo const& rhs)
+{
+  return value + rhs.value;
+}

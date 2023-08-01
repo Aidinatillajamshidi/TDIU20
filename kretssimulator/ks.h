@@ -1,0 +1,81 @@
+#ifndef KS_H
+#define KS_H
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <vector>
+
+//////////////////////////////////////////////////////////////////////////////// komposition
+//Class Connection
+class Connection
+{ 
+public:
+  
+  double volt{};
+
+  double get_volt() const;
+
+};
+////////////////////////////////////////////////////////////////////////////////
+//Class Component
+class Component
+{
+public:
+  std::string name{};
+  
+  Component(std::string const &name , Connection &a, Connection &b);
+  virtual ~Component() = default;
+  virtual double get_strom() const = 0;
+  virtual void simulate(double time) = 0;
+  
+  std::string get_name() const;
+  double get_volt() const;
+
+  protected:
+  Connection &a; //p
+  Connection &b; //n
+};
+////////////////////////////////////////////////////////////////////////////////
+//Class Battery
+class Battery : public Component
+{
+private:
+  
+  double volt{};
+  
+public:
+  Battery(std::string const name, double const volt, Connection &a, Connection &b);
+  double get_volt() const;
+  double get_strom() const override;
+  void simulate(double) override; 
+
+};
+////////////////////////////////////////////////////////////////////////////////
+//Class Resistor
+class Resistor : public Component
+{
+private:
+  double resistance{};
+
+public:
+  Resistor(std::string const name, double const r, Connection &a, Connection &b);
+  double get_strom() const override;
+  void simulate(double time) override; 
+};
+////////////////////////////////////////////////////////////////////////////////
+//Class Capacitor
+class Capacitor : public Component
+{
+private:
+  double farad{}; //Kapacitans
+  double strom{};
+  
+public:
+  Capacitor(std::string const name, double const farad, Connection &a, Connection &b);
+  double get_strom() const override;
+  void simulate(double const time_step) override;
+};
+////////////////////////////////////////////////////////////////////////////////
+//Main simulate
+void simulate(std::vector<Component*> krets, int iteration, int row, double time);
+#endif 

@@ -1,0 +1,22 @@
+#ifndef TREE_H
+#define TREE_h
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+class Branch
+{
+ public:
+
+ private:
+};
+
+class Tree
+{
+ public:
+
+ private:
+};
+
+#endif

@@ -1,0 +1,20 @@
+
+int main()
+{
+  Course tsiu05{"TSIU05", 8};
+  tsiu05.add_examination( Part{"UPG1", 2, "G"} );
+  tsiu05.add_examination( Part{"LAB1", 2, "G"} );
+  tsiu05.add_examination( Part{"TEN1", 4, "5"} );
+    
+  Course tdiu20 {"TDIU20", 4};
+  tdiu20.add_examination( Part{"LAB1", 3, "G"} );
+    
+  Course taiu10 {"TAIU10", 6};
+  taiu10.add_examination( Part{"TEN1", 6, "4"} );
+
+  tsiu05.print(std::cout);
+  tdiu20.print(std::cout);
+  taiu10.print(std::cout);
+    
+  return 0;
+}

@@ -1,0 +1,16 @@
+TDIU20
+Object-Oriented Programming
+Linköpings universitet
+2022
+
+
+Kursinnehåll:
+
+-Abstraktion med sammansatta datatyper
+-Pekare och minneshantering i C++
+-Objektorinterade koncept (objekt, instans, inkapsling, association, aggregation, komposition, arv)
+-Klasser
+-Specialisering (arv)
+-Polymorfi
+-Introduktion till UML (klassdiagram)
+-Repetition filuppdelning

@@ -1,0 +1,240 @@
+#include "List.h"
+#include "catch.hpp"
+#include <iostream>
+#include <string>
+#include <iomanip>
+////////////////////////////////////////////////////////////////////////////
+//Tom lista
+TEST_CASE("Lista utan innehåll")
+{
+    Sorted_list list;
+    Sorted_list list1{2, 3, 4};
+
+  CHECK(list.empty());
+  CHECK_FALSE(list1.empty());
+}
+////////////////////////////////////////////////////////////////////////////
+//Storlek på lista
+TEST_CASE("Storlek på lista")
+{
+  Sorted_list list{};
+  Sorted_list list1{}; 
+  Sorted_list list2{};
+
+  list.insert(1);
+  list.insert(3);
+  list.insert(5);
+  list1.insert(10);
+  list1.insert(500);
+  list1.insert(400);
+  list1.insert(899);
+  
+  CHECK(list.class_size() == 3);
+  CHECK(list1.class_size() == 4);
+  CHECK(list2.class_size() == 0);
+
+  CHECK_FALSE(list.class_size() == 10);
+  CHECK_FALSE(list1.class_size() == 6);
+  CHECK_FALSE(list2.class_size() == 1); 
+}
+///////////////////////////////////////////////////////////////////////////////
+//Lista med innehåll
+TEST_CASE("Compare list")
+{
+  Sorted_list list{2, 3, 4, 5, 7};
+
+  CHECK(list.compare(0) == 2);
+  CHECK(list.compare(1) == 3);
+  CHECK(list.compare(2) == 4);
+  CHECK(list.compare(3) == 5);
+  CHECK(list.compare(4) == 7);
+  
+  CHECK_FALSE(list.compare(0) == 3);
+  CHECK_FALSE(list.compare(1) == 4);
+  CHECK_FALSE(list.compare(2) == 2);
+  CHECK_FALSE(list.compare(3) == 7);
+  CHECK_FALSE(list.compare(4) == 5);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//Mata in data i lista
+TEST_CASE("Lista med innehåll - insert")
+{
+  Sorted_list list{2, 3, 4};
+  Sorted_list list1{1, 2, 5};
+
+  list.insert(1);
+  list1.insert(4);
+
+  CHECK(list.compare(0) == 1);
+  CHECK(list1.compare(2) == 4);				       
+}
+///////////////////////////////////////////////////////////////////////////////
+//Insert i tom lista
+TEST_CASE("Lista som är tom - insert")
+{
+  Sorted_list list{};
+  Sorted_list list1{};
+  Sorted_list list2{};
+  Sorted_list list3{};
+  Sorted_list list4{};
+  
+  list.insert(1);
+  list1.insert(5);
+  list2.insert(3);
+  list2.insert(4);
+  list2.insert(6);
+  list3.insert(20);
+  list4.insert(20);
+  list4.insert(35);
+  list4.insert(49);
+
+  CHECK(list.compare(0) == 1);
+  CHECK(list1.compare(0) == 5);
+  CHECK(list2.compare(2) == 6);
+  CHECK(list3.compare(0) == 20);
+  CHECK(list4.compare(1) == 35);
+  CHECK_FALSE(list.compare(0) == 2);
+  CHECK_FALSE(list2.compare(2) == 4);
+  CHECK_FALSE(list3.compare(0) == 0);
+  CHECK_FALSE(list4.compare(1) == 20);
+}
+////////////////////////////////////////////////////////////////////////////
+//Kopiera lista till en annan
+TEST_CASE("Kopierar lista")
+{
+  Sorted_list list{};
+  Sorted_list list1{};
+  Sorted_list list2{};
+  Sorted_list list3{2, 3};
+  Sorted_list list4{7, 8};
+  Sorted_list list5{10, 15, 20};
+  std::stringstream ss{};
+
+  list.copy(list3);
+  list1.copy(list4);
+  list2.copy(list5);
+  
+  CHECK(list.compare(0) == 2);
+  CHECK(list1.compare(0) == 7);
+  CHECK(list2.compare(0) == 10);
+  CHECK(list2.compare(1) == 15);
+}
+////////////////////////////////////////////////////////////////////////////
+//Tar bort all innehåll i listan
+TEST_CASE("Rensa innehåll i lista") 
+{
+  Sorted_list list{5, 7, 9};
+  std::stringstream ss{};
+  
+  list.remove(0);
+  list.remove(0);
+  list.remove(0);
+
+  ss << list;
+  CHECK_FALSE(ss.str() == "5 7 9");
+}
+////////////////////////////////////////////////////////////////////////////
+//Move - Flyttilldelning
+TEST_CASE("Operator = ")
+{
+  Sorted_list list{};
+  Sorted_list list1{};
+  Sorted_list list2{};
+  Sorted_list list3{};
+  Sorted_list list4{3, 4, 5};
+  Sorted_list list5{list4};
+  std::stringstream ss{};
+  std::stringstream ss1{};
+  std::stringstream ss2{};
+
+  list.insert(2);
+  list.insert(5);
+  list2.insert(10);
+  list2.insert(50);
+  list2.insert(100);
+  
+  list1 = list;
+  list3 = list2;
+
+  ss << list5;
+  ss1 << list1;
+  ss2 << list3;
+
+  CHECK(ss.str() == "3 4 5");
+  CHECK(ss1.str() == "2 5");
+  CHECK(ss2.str() == "10 50 100");
+}
+////////////////////////////////////////////////////////////////////////////
+//Remove funktion i lista
+TEST_CASE("Remove funktion")
+{
+  Sorted_list list{3, 5, 7};
+  Sorted_list list1{};
+  Sorted_list list2{};
+  std::stringstream ss{};
+  std::stringstream ss1{};
+  std::stringstream ss2{};
+  std::stringstream ss3{};
+  
+  ss << list;
+  CHECK(ss.str() == "3 5 7");
+
+  list1.insert(3);
+  list1.remove(0);
+  ss1 << list1;
+  CHECK_FALSE(ss1.str() == "3");
+
+  list2.insert(5);
+  list2.insert(7);
+  list2.insert(9);
+  ss2 << list2;
+  CHECK(ss2.str() == "5 7 9");
+  list2.remove(0);
+  ss3 << list2;
+  CHECK(ss3.str() == "7 9");
+}
+////////////////////////////////////////////////////////////////////////////
+//Tilldelning av nytt objekt till lista
+TEST_CASE("Tilldelning av nytt objekt")
+{
+  Sorted_list list{1, 3, 37};
+  Sorted_list list1{list};
+  std::stringstream ss{};
+
+  ss << list1;
+  CHECK(ss.str() == "1 3 37");
+}
+////////////////////////////////////////////////////////////////////////////
+//Move konstruktor
+TEST_CASE("Move tilldelning - Swap")
+{
+  Sorted_list list{2, 3, 4};
+  Sorted_list list1{6, 7, 8};
+  std::stringstream ss{};
+  std::stringstream ss1{};
+
+  list = std::move(list1);
+
+  ss << list;
+  ss1 << list1;
+
+  CHECK(ss.str() == "6 7 8");
+  CHECK(ss1.str() == "2 3 4");
+}
+////////////////////////////////////////////////////////////////////////////
+//Move konstruktor - swap
+TEST_CASE("Move konstruktor - swap")
+{
+  Sorted_list list1{6, 7, 8};
+  Sorted_list list{};
+  std::stringstream ss{};
+  
+  list = std::move(list1);
+  
+  ss << list;
+
+  CHECK(ss.str() == "6 7 8");
+  CHECK(list1.empty());
+}
+
