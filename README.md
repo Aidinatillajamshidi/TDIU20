@@ -1,10 +1,10 @@
-TDIU20
-Object-Oriented Programming
-Linköpings universitet
-2022
+TDIU20 <br />
+Object-Oriented Programming <br />
+Linköpings universitet <br />
+2022 <br />
 
 
-Course content:
+**Course content:**
 
 - Abstraction using composed types
 - Pointers and memory handling in C++
